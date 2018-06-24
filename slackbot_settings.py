@@ -1,14 +1,14 @@
-def load_secret(key):
+def load_secret(key, default=None):
     key = key.upper()
     try:
         import secrets
-        __dict__(key) = secrets.__dict__(key)
+        __dict__[key] = secrets.__dict__(key)
         print('INFO: Loaded {} from secrets'.format(key))
         return True
     except:
         try:
             import os
-            __dict__(key) = os.environ[key]
+            __dict__[key] = os.environ[key]
             print('INFO: Loaded {} from ENV'.format(key))
             return True
 
