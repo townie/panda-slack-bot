@@ -46,3 +46,4 @@ def panda(message):
 
     message.reply("I LOVE PANDAS")
     message.react('panda')
+    message.react('heart')
