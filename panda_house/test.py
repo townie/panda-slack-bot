@@ -1,4 +1,5 @@
 import re
+import json
 
 from phue import Bridge
 from simple_salesforce import Salesforce
@@ -36,4 +37,6 @@ def query(message, qstring):
     sf = Salesforce(password=settings.SFDC_PASSWORD, username=settings.SFDC_USERNAME,
                     security_token=settings.SFDC_SECURITY_TOKEN)
 
-    message.reply(sf.query(qstring))
+    message.send_webapi('', json.dumps(sf.query(qstring)))
+
+    # message.reply(sf.query(qstring))
