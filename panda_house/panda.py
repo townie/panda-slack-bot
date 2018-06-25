@@ -45,3 +45,4 @@ def query(message, qstring):
 def panda(message):
 
     message.reply("I LOVE PANDAS")
+    message.react('panda')
