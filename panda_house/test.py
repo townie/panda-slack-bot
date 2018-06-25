@@ -34,6 +34,6 @@ def lights(message):
 @respond_to('query (.*)', re.IGNORECASE)
 def query(message, qstring):
     sf = Salesforce(password=settings.SFDC_PASSWORD, username=settings.SFDC_USERNAME,
-                    organizationId=settings.SFDC_ORG_ID)
+                    security_token=settings.SFDC_SECURITY_TOKEN)
 
     message.reply(sf.query(qstring))
