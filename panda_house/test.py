@@ -38,5 +38,4 @@ def query(message, qstring):
                     security_token=settings.SFDC_SECURITY_TOKEN)
 
     message.send_webapi('', json.dumps(sf.query(qstring)))
-
-    # message.reply(sf.query(qstring))
+    message.reply(json.dumps(out['records']))
