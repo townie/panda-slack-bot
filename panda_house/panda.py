@@ -39,3 +39,9 @@ def query(message, qstring):
 
     out = sf.query(qstring)
     message.reply(json.dumps(out['records']))
+
+
+@respond_to('panda', re.IGNORECASE)
+def panda(message):
+
+    message.reply("I LOVE PANDAS")

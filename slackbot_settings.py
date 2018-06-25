@@ -39,5 +39,5 @@ DEFAULT_REPLY = "Sorry but I didn't understand you"
 ERRORS_TO = 'bot-dev'
 
 PLUGINS = [
-    'panda_house.test',
+    'panda_house.panda',
 ]
