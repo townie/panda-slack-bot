@@ -36,7 +36,9 @@ def load_secret(key, default=None):
 
 
 load_secret('API_TOKEN')
-
+load_secret('SFCD_PASSWORD')
+load_secret('SFCD_USERNAME')
+load_secret('SFCD__ORG_ID')
 
 DEFAULT_REPLY = "Sorry but I didn't understand you"
 ERRORS_TO = 'bot-dev'

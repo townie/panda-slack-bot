@@ -1,2 +1,3 @@
 slackbot
 phue
+simple-salesforce

@@ -1,6 +1,8 @@
 from slackbot.bot import respond_to
 from slackbot.bot import listen_to
 
+from slackbot import settings
+
 from phue import Bridge
 
 import re
@@ -28,3 +30,13 @@ def lights(message):
 	lights = b.get_light_objects('id')
 
 	message.reply(lights)
+
+
+
+@respond_to('query (*)', re.IGNORECASE)
+def status(message, qstring=None):
+
+	sf = Salesforce(password=settings.SFCD_PASSWORD, username=settings.SFCD_USERNAME,
+					organizationId=settings.SFDC_ORG_ID)
+
+	message.reply(sf.query(qstring))
