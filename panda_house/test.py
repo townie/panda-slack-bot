@@ -37,5 +37,4 @@ def query(message, qstring):
     sf = Salesforce(password=settings.SFDC_PASSWORD, username=settings.SFDC_USERNAME,
                     security_token=settings.SFDC_SECURITY_TOKEN)
 
-    message.send_webapi('', json.dumps(sf.query(qstring)))
     message.reply(json.dumps(out['records']))
