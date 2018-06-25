@@ -14,17 +14,12 @@ def load_secret(key, default=None):
         import secrets
         setattr(module, key, secrets.__dict__[key])
         key_set = True
-
         print('INFO: Loaded {} from secrets'.format(key))
-        return True
     except:
         try:
-            __dict__[key] = os.environ[key]
-            setattr(module, key, secrets.__dict__[key])
-
+            setattr(module, key, os.environ[key])
             print('INFO: Loaded {} from ENV'.format(key))
             key_set = True
-
         except:
             print('ERROR: {} not found, application may not work'.format(key))
 
