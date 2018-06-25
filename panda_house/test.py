@@ -33,7 +33,7 @@ def lights(message):
 
 
 
-@respond_to('query (*)', re.IGNORECASE)
+@respond_to('query (.*)', re.IGNORECASE)
 def query(message, qstring):
 
 	sf = Salesforce(password=settings.SFCD_PASSWORD, username=settings.SFCD_USERNAME,
