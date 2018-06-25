@@ -28,8 +28,8 @@ def load_secret(key, default=None):
         except:
             print('ERROR: {} not found, application may not work'.format(key))
 
-    if not key_set and deault is not None:
-        setattr(module, key, deault)
+    if not key_set and default is not None:
+        setattr(module, key, default)
         key_set = True
 
     return key_set
