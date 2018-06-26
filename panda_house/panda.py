@@ -45,7 +45,7 @@ def convert_to_readable(dictionary, headers=None):
     if headers:
         strout = "{:<20} {:<35}\n".format(headers[0], headers[1])
 
-    strout += '-' * 40
+    strout += '-' * 40 + '\n'
     for k, v in dictionary.items():
         strout += "{:<20} {:<35}\n".format(k, v)
 
