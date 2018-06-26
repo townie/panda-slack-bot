@@ -45,11 +45,11 @@ load_secret('HUE_USERNAME')
 
 # Mining
 load_secret('NICEHASH_ADDRESS')
-load_secret('BITCOIN_FIAT')
+load_secret('BITCOIN_FIAT', default='USD')
 
-load_secret('DEFAULT_REPLY', default="Sorry but I didn't understand you")
+load_secret('DEFAULT_REPLY', default='Try again.')
 
-load_secret('ERRORS_TO', default="test")
+load_secret('ERRORS_TO', default='test')
 
 
 PLUGINS = [

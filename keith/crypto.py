@@ -67,7 +67,7 @@ def mining_stats(message):
         if (len(reqWorkers['result']['workers']) >= 1):
             # import ipdb;ipdb.set_trace()
 
-            totalProfitability += float(float(item['profitability']) * float(item['data'][0].get('a', 0)))
+            totalProfitability += float(float(item['profitability']) * float(item['data'][0].get('a',1)))
         reply += "Balance: {0} BTC or {1:,.2f} {2}\n".format(
             item['data'][1], float(item['data'][1])*priceCurrency, settings.BITCOIN_FIAT)
         reply += "---------------------------------------------------\n"
