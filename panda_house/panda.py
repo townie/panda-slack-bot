@@ -23,7 +23,8 @@ def status(message):
 
 @respond_to('lights', re.IGNORECASE)
 def lights(message):
-    b = Bridge('192.168.1.16', username="keith")
+    b = Bridge('192.168.1.16', username=u'W0hrwByWt-KtIeYlqj0F9jL4eE6GvVK8ki62Akl8'
+)
 
     # If the app is not registered and the button is not pressed, press the button and call connect() (this only needs to be run a single time)
     b.connect()
