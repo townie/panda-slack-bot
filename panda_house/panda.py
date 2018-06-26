@@ -30,7 +30,10 @@ def lights(message):
     # button and call connect() (this only needs to be run a single time)
     lights = b.get_light_objects('id')
 
-    light_status = {light.name: light.on for light in lights.values()}
+    light_status = {
+        light.name: lightbool(light.on)
+        for light in lights.values()
+    }
 
     res = codeblock(convert_to_table(light_status, headers=["Light", "Status"]))
     message.reply(res)
@@ -44,17 +47,25 @@ def light_control(message, action, light):
     lights = b.get_light_objects('name')
     fuzzy_lights = {l.lower(): l for l in lights.keys()}
 
+    # key search
     found_key = ''
     if light.lower() in fuzzy_lights.keys():
         found_key = fuzzy_lights[light.lower()]
     else:
-        possible = difflib.get_close_matches(light.lower(), fuzzy_lights.keys())
+        possible = difflib.get_close_matches(
+            light.lower(), fuzzy_lights.keys())
         if len(possible) > 0:
             found_key = fuzzy_lights[possible[0]]
-    if action == "off":
+
+    # control action
+    if action == "off" and found_key in lights:
         lights[found_key].on = False
-    elif action == "on":
+        message.react('bulbout')
+    elif action == "on" and found_key in lights:
         lights[found_key].on = True
+        message.react('bulb')
+    else:
+        message.react('bulbunknown')
 
 
 @respond_to('query (.*)', re.IGNORECASE)
@@ -74,7 +85,7 @@ def panda(message):
     message.react('heart')
 
 
-def strbool(thing):
+def lightbool(thing):
     if thing:
         return 'ON'
     return "OFF"
