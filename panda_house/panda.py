@@ -50,7 +50,7 @@ def light_control(message, action, light):
         found_key = difflib.get_close_matches(light, lights.keys())
     if action == "off":
         lights[found_key].on = False
-    elif action == "off":
+    elif action == "on":
         lights[found_key].on = True
 
 
