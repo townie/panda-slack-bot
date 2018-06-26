@@ -30,9 +30,9 @@ def lights(message):
     b.connect()
     lights = b.get_light_objects('id')
 
-    light_status = {light.name: light.on for light in lights.values()}
+    light_status = {light.name: bool(light.on) for light in lights.values()}
 
-    message.reply(codeblock(convert_to_readable(light_status, headers=["light", "status"])))
+    message.reply(codeblock(convert_to_readable(light_status, headers=["Light", "Status"])))
 
 
 def codeblock(s):
