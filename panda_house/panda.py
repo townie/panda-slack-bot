@@ -32,9 +32,11 @@ def lights(message):
 
     light_status = {light.name: light.on for light in lights.values()}
 
-    message.reply(convert_to_readable(light_status, headers=["light", "status"]))
+    message.reply(codeblock(convert_to_readable(light_status, headers=["light", "status"])))
 
 
+def codeblock(s):
+    return '```\n' + s + '```'
 def convert_to_readable(dictionary, headers=None):
     strout = ''
 
