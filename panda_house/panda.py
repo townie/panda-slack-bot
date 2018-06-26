@@ -34,6 +34,24 @@ def lights(message):
 
     message.reply(codeblock(convert_to_readable(light_status, headers=["Light", "Status"])))
 
+
+@respond_to('turn off (.*)', re.IGNORECASE)
+def light_off(message, light):
+
+    b = Bridge('192.168.1.16', username=u'W0hrwByWt-KtIeYlqj0F9jL4eE6GvVK8ki62Akl8')
+
+    lights = b.get_light_objects('name')
+    fuzzy_lights = {l.lower(): l for l in lights.keys()}
+
+    found_key = ''
+    if light.lower() in fuzzy_lights.keys():
+        found_key = fuzzy_lights[light.lower()]
+    else:
+        found_key = difflib.get_close_matches(light, lights.keys())
+
+    lights[found_key].on = False
+
+
 def strbool(thing):
     if thing:
         return 'ON'
