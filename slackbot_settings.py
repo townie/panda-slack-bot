@@ -25,6 +25,8 @@ def load_secret(key, default=None):
 
     if not key_set and default is not None:
         setattr(module, key, default)
+        print('INFO: Used Default for {}.'.format(key))
+
         key_set = True
 
     return key_set

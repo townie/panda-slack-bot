@@ -2,6 +2,7 @@ import re
 import json
 import difflib
 
+from common import helper as cmn
 
 from phue import Bridge
 from simple_salesforce import Salesforce
@@ -31,11 +32,11 @@ def lights(message):
     lights = b.get_light_objects('id')
 
     light_status = {
-        light.name: lightbool(light.on)
+        light.name: cmn.lightbool(light.on)
         for light in lights.values()
     }
 
-    res = codeblock(convert_to_table(light_status, headers=["Light", "Status"]))
+    res = cmn.codeblock(cmn.convert_to_table(light_status, headers=["Light", "Status"]))
     message.reply(res)
 
 
@@ -85,24 +86,24 @@ def panda(message):
     message.react('heart')
 
 
-def lightbool(thing):
-    if thing:
-        return 'ON'
-    return "OFF"
+# def lightbool(thing):
+#     if thing:
+#         return 'ON'
+#     return "OFF"
 
 
-def codeblock(s):
-    return '```\n' + s + '```'
+# def codeblock(s):
+#     return '```\n' + s + '```'
 
 
-def convert_to_table(dictionary, headers=None):
-    strout = ''
+# def convert_to_table(dictionary, headers=None):
+#     strout = ''
 
-    if headers:
-        strout = "{:<20} | {:<35}\n".format(headers[0], headers[1])
+#     if headers:
+#         strout = "{:<20} | {:<35}\n".format(headers[0], headers[1])
 
-    strout += '-' * 40 + '\n'
-    for k, v in dictionary.items():
-        strout += "{:<20} | {:<35}\n".format(k, v)
+#     strout += '-' * 40 + '\n'
+#     for k, v in dictionary.items():
+#         strout += "{:<20} | {:<35}\n".format(k, v)
 
-    return strout
+#     return strout
