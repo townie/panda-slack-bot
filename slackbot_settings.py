@@ -41,6 +41,10 @@ load_secret('SFDC_SECURITY_TOKEN')
 load_secret('HUE_BRIDGE_IP')
 load_secret('HUE_USERNAME')
 
+# Mining
+load_secret('NICEHASH_ADDRESS')
+load_secret('BITCOIN_FIAT')
+
 
 
 DEFAULT_REPLY = "Sorry but I didn't understand you"
