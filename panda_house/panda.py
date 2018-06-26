@@ -1,5 +1,7 @@
 import re
 import json
+import difflib
+
 
 from phue import Bridge
 from simple_salesforce import Salesforce
