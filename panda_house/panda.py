@@ -29,7 +29,7 @@ def lights(message):
     b.connect()
     lights = b.get_light_objects('id')
 
-    light_status = {light.name: light.on  for light in lights}
+    light_status = {light.name: light.on  for light in lights.values()}
     message.reply(light_status)
 
 
