@@ -25,21 +25,27 @@ def status(message):
 def lights(message):
     b = Bridge('192.168.1.16', username=u'W0hrwByWt-KtIeYlqj0F9jL4eE6GvVK8ki62Akl8')
 
-    # If the app is not registered and the button is not pressed, press the button and call connect() (this only needs to be run a single time)
+    # If the app is not registered and the button is not pressed, press the button and call
+    # connect() (this only needs to be run a single time)
     b.connect()
     lights = b.get_light_objects('id')
 
-    light_status = {light.name: light.on  for light in lights.values()}
+    light_status = {light.name: light.on for light in lights.values()}
 
-    message.reply(convert_to_readable(light_status,headers="light, status"))
+    message.reply(convert_to_readable(light_status, headers=["light", "status"]))
 
 
 def convert_to_readable(dictionary, headers=None):
-    strout = headers or ''
-    strout += '\n'
-    for k,v in dictionary:
-        strout += "{} : {}\n".format(k,v)
+    strout = ''
+
+    if headers:
+        strout = "{:<8} {:<15}\n".format(headers[0], headers[1])
+
+    for k, v in dictionary.items():
+        strout += "{:<8} {:<15}\n".format(k, v)
+
     return strout
+
 
 @respond_to('query (.*)', re.IGNORECASE)
 def query(message, qstring):
