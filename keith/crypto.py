@@ -1,4 +1,4 @@
-import urllib.request
+from six.moves.urllib import request
 import json
 import threading
 import locale
