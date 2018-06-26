@@ -58,6 +58,23 @@ def light_control(message, action, light):
         lights[found_key].on = True
 
 
+@respond_to('query (.*)', re.IGNORECASE)
+def query(message, qstring):
+    sf = Salesforce(password=settings.SFDC_PASSWORD, username=settings.SFDC_USERNAME,
+                    security_token=settings.SFDC_SECURITY_TOKEN)
+
+    out = sf.query(qstring)
+    message.reply(json.dumps(out['records']))
+
+
+@respond_to('panda', re.IGNORECASE)
+def panda(message):
+
+    message.reply("I LOVE PANDAS")
+    message.react('panda_face')
+    message.react('heart')
+
+
 def strbool(thing):
     if thing:
         return 'ON'
@@ -79,20 +96,3 @@ def convert_to_readable(dictionary, headers=None):
         strout += "{:<20} | {:<35}\n".format(k, v)
 
     return strout
-
-
-@respond_to('query (.*)', re.IGNORECASE)
-def query(message, qstring):
-    sf = Salesforce(password=settings.SFDC_PASSWORD, username=settings.SFDC_USERNAME,
-                    security_token=settings.SFDC_SECURITY_TOKEN)
-
-    out = sf.query(qstring)
-    message.reply(json.dumps(out['records']))
-
-
-@respond_to('panda', re.IGNORECASE)
-def panda(message):
-
-    message.reply("I LOVE PANDAS")
-    message.react('panda_face')
-    message.react('heart')
