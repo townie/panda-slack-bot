@@ -1,38 +1,12 @@
-import sys
-import os
+# import sys
+# import os
 
+from common.load_secret import load_secret
 
-def load_secret(key, default=None):
-    """
-    Set module level constant dynamically from secrets.py, env or default
-    """
-    key = key.upper()
-    module = sys.modules[__name__]
-    key_set = False
-
-    try:
-        import secrets
-        setattr(module, key, secrets.__dict__[key])
-        key_set = True
-        print('INFO: Loaded {} from secrets'.format(key))
-    except:
-        try:
-            setattr(module, key, os.environ[key])
-            print('INFO: Loaded {} from ENV'.format(key))
-            key_set = True
-        except:
-            print('ERROR: {} not found, application may not work'.format(key))
-
-    if not key_set and default is not None:
-        setattr(module, key, default)
-        print('INFO: Used Default for {}.'.format(key))
-
-        key_set = True
-
-    return key_set
-
-# slack token
-load_secret('API_TOKEN')
+# slackbot settings
+load_secret('API_TOKEN')  # slack token
+load_secret('DEFAULT_REPLY', default='Try again.')
+load_secret('ERRORS_TO', default='test')
 
 # Salesforce
 load_secret('SFDC_PASSWORD')
@@ -47,13 +21,9 @@ load_secret('HUE_USERNAME')
 load_secret('NICEHASH_ADDRESS')
 load_secret('BITCOIN_FIAT', default='USD')
 
-load_secret('DEFAULT_REPLY', default='Try again.')
 
-load_secret('ERRORS_TO', default='test')
-
-
+# Plugins
 PLUGINS = [
-    'panda_house.panda',
+    'panda_house.house',
     'keith.crypto',
-
 ]
