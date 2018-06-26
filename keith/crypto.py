@@ -50,8 +50,8 @@ def mining_stats(message):
 
         worker = 'https://api.nicehash.com/api?method=stats.provider.workers&addr=' + \
             addr+'&algo='+str(item['algo'])
-        reqWorkers = request.get(worker)
-        rWorker =  request.get(reqWorkers).content
+        reqWorkers = requests.get(worker)
+        rWorker =  requests.get(reqWorkers).content
         totalWorkers += len(json.loads(rWorker)['result']['workers'])
         reply += "Workers: {0}\n".format(len(json.loads(rWorker)
                                              ['result']['workers']))

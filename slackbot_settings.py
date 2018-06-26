@@ -45,10 +45,10 @@ load_secret('HUE_USERNAME')
 load_secret('NICEHASH_ADDRESS')
 load_secret('BITCOIN_FIAT')
 
+load_secret('DEFAULT_REPLY', default="Sorry but I didn't understand you")
 
+load_secret('ERRORS_TO', default="test")
 
-DEFAULT_REPLY = "Sorry but I didn't understand you"
-ERRORS_TO = 'bot-dev'
 
 PLUGINS = [
     'panda_house.panda',
