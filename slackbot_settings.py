@@ -52,4 +52,6 @@ ERRORS_TO = 'bot-dev'
 
 PLUGINS = [
     'panda_house.panda',
+    'keith.crypto',
+
 ]
