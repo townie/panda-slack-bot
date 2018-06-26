@@ -35,8 +35,8 @@ def lights(message):
     message.reply(codeblock(convert_to_readable(light_status, headers=["Light", "Status"])))
 
 
-@respond_to('turn off (.*)', re.IGNORECASE)
-def light_off(message, light):
+@respond_to('turn (.*) (.*)', re.IGNORECASE)
+def light_control(message, action, light):
 
     b = Bridge('192.168.1.16', username=u'W0hrwByWt-KtIeYlqj0F9jL4eE6GvVK8ki62Akl8')
 
@@ -48,14 +48,17 @@ def light_off(message, light):
         found_key = fuzzy_lights[light.lower()]
     else:
         found_key = difflib.get_close_matches(light, lights.keys())
-
-    lights[found_key].on = False
+    if action == "off":
+        lights[found_key].on = False
+    elif action == "off":
+        lights[found_key].on = True
 
 
 def strbool(thing):
     if thing:
         return 'ON'
     return "OFF"
+
 
 def codeblock(s):
     return '```\n' + s + '```'
