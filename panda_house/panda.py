@@ -49,7 +49,9 @@ def light_control(message, action, light):
     if light.lower() in fuzzy_lights.keys():
         found_key = fuzzy_lights[light.lower()]
     else:
-        found_key = difflib.get_close_matches(light, lights.keys()).pop(0)
+        possible = ifflib.get_close_matches(light.lower(), fuzzy_lights.keys())
+        if len(possible) > 0:
+            found_key = possible[0]
     if action == "off":
         lights[found_key].on = False
     elif action == "on":
