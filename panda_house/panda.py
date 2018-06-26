@@ -29,7 +29,8 @@ def lights(message):
     b.connect()
     lights = b.get_light_objects('id')
 
-    message.reply(lights)
+    light_status = {light.name, light.on  for light in lights}
+    message.reply(light_status)
 
 
 @respond_to('query (.*)', re.IGNORECASE)
