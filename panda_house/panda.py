@@ -23,14 +23,15 @@ def status(message):
 
 @respond_to('lights', re.IGNORECASE)
 def lights(message):
-    b = Bridge('192.168.1.16')
+    b = Bridge('192.168.1.16', username="keith")
 
     # If the app is not registered and the button is not pressed, press the button and call connect() (this only needs to be run a single time)
     b.connect()
     lights = b.get_light_objects('id')
 
     light_status = {light.name: light.on  for light in lights.values()}
-    message.reply(light_status)
+
+    message.reply(json.dumps(light_status))
 
 
 @respond_to('query (.*)', re.IGNORECASE)
