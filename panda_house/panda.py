@@ -25,22 +25,21 @@ def status(message):
 
 @respond_to('lights', re.IGNORECASE)
 def lights(message):
-    b = Bridge('192.168.1.16', username=u'W0hrwByWt-KtIeYlqj0F9jL4eE6GvVK8ki62Akl8')
-
-    # If the app is not registered and the button is not pressed, press the button and call
-    # connect() (this only needs to be run a single time)
-    b.connect()
+    b = Bridge(settings.HUE_BRIDGE_IP, username=settings.HUE_USERNAME)
+    # If the app is not registered and the button is not pressed, press the
+    # button and call connect() (this only needs to be run a single time)
     lights = b.get_light_objects('id')
 
     light_status = {light.name: light.on for light in lights.values()}
 
-    message.reply(codeblock(convert_to_readable(light_status, headers=["Light", "Status"])))
+    res = codeblock(convert_to_table(light_status, headers=["Light", "Status"]))
+    message.reply(res)
 
 
 @respond_to('turn (.*) (.*)', re.IGNORECASE)
 def light_control(message, action, light):
 
-    b = Bridge('192.168.1.16', username=u'W0hrwByWt-KtIeYlqj0F9jL4eE6GvVK8ki62Akl8')
+    b = Bridge(settings.HUE_BRIDGE_IP, username=settings.HUE_USERNAME)
 
     lights = b.get_light_objects('name')
     fuzzy_lights = {l.lower(): l for l in lights.keys()}
@@ -60,7 +59,8 @@ def light_control(message, action, light):
 
 @respond_to('query (.*)', re.IGNORECASE)
 def query(message, qstring):
-    sf = Salesforce(password=settings.SFDC_PASSWORD, username=settings.SFDC_USERNAME,
+    sf = Salesforce(password=settings.SFDC_PASSWORD,
+                    username=settings.SFDC_USERNAME,
                     security_token=settings.SFDC_SECURITY_TOKEN)
 
     out = sf.query(qstring)
@@ -69,7 +69,6 @@ def query(message, qstring):
 
 @respond_to('panda', re.IGNORECASE)
 def panda(message):
-
     message.reply("I LOVE PANDAS")
     message.react('panda_face')
     message.react('heart')
@@ -85,7 +84,7 @@ def codeblock(s):
     return '```\n' + s + '```'
 
 
-def convert_to_readable(dictionary, headers=None):
+def convert_to_table(dictionary, headers=None):
     strout = ''
 
     if headers:

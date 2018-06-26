@@ -29,11 +29,19 @@ def load_secret(key, default=None):
 
     return key_set
 
-
+# slack token
 load_secret('API_TOKEN')
+
+# Salesforce
 load_secret('SFDC_PASSWORD')
 load_secret('SFDC_USERNAME')
 load_secret('SFDC_SECURITY_TOKEN')
+
+# Phillips Hue
+load_secret('HUE_BRIDGE_IP')
+load_secret('HUE_USERNAME')
+
+
 
 DEFAULT_REPLY = "Sorry but I didn't understand you"
 ERRORS_TO = 'bot-dev'
