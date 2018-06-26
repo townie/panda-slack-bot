@@ -29,7 +29,7 @@ def mining_stats(message):
     locale.setlocale(locale.LC_ALL, '')
     reqPrice = requests.get(price)
 
-    priceCurrency = reqPrice.json()['bpi'][settings.BITCOIN_FIAT]['rate_float']
+    priceCurrency = float(reqPrice.json()['bpi'][settings.BITCOIN_FIAT]['rate_float'])
 
     reply += "\n\nUsing Currency: BTC/{0} = {1:,.2f}\n".format(
         settings.BITCOIN_FIAT, priceCurrency)
@@ -63,25 +63,28 @@ def mining_stats(message):
                 profitability, item['suffix'])
             reply += "Profitability: {0} BTC/day or {1:,.2f} {2}/day\n".format(
                 profitability, profitability*priceCurrency, settings.BITCOIN_FIAT)
+
+            totalProfitability += float(profitability*priceCurrency)
+
         else:
             reply += "Accepted Speed: 0 {0}/s\n".format(item['suffix'])
             reply += "Profitability: 0 BTC/day or 0.00 {0}/day\n".format(
                 settings.BITCOIN_FIAT)
 
-        if (len(reqWorkers['result']['workers']) >= 1):
-            # import ipdb;ipdb.set_trace()
-
-            totalProfitability += float(float(item['profitability'])
-                                        * float(item['data'][0].get('a', 1)))
-        reply += "Balance: {0} BTC or {1:,.2f} {2}\n".format(
-            item['data'][1], float(item['data'][1])*priceCurrency, settings.BITCOIN_FIAT)
+        # if (len(reqWorkers['result']['workers']) >= 1):
+        #     import ipdb;ipdb.set_trace()
+        #     profitability = float(item['profitability']) * \
+        #                      float(item['data'][0].get('a', 1))
+        #     totalProfitability += float(profitability*priceCurrency)
+        # reply += "Balance: {0} BTC or {1:,.2f} {2}\n".format(
+        #     item['data'][1], float(item['data'][1])*priceCurrency, settings.BITCOIN_FIAT)
         reply += "---------------------------------------------------\n"
 
     reply += "===================================================\n"
     reply += "Total Algo: {}\n".format(counter)
     reply += "Total Workers: {0}\n".format(totalWorkers)
     reply += "Total Profitability: {0} BTC/day or {1:,.2f} {2}\n".format(
-        profitability, float(profitability)*priceCurrency, settings.BITCOIN_FIAT)
+        profitability, float(totalProfitability), settings.BITCOIN_FIAT)
     reply += "Total Balance: {} BTC\n".format(balance)
 
     message.reply(codeblock(reply))
