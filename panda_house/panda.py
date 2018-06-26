@@ -37,14 +37,16 @@ def lights(message):
 
 def codeblock(s):
     return '```\n' + s + '```'
+
+
 def convert_to_readable(dictionary, headers=None):
     strout = ''
 
     if headers:
-        strout = "{:<8} {:<15}\n".format(headers[0], headers[1])
+        strout = "{:<8} {:<25}\n".format(headers[0], headers[1])
 
     for k, v in dictionary.items():
-        strout += "{:<8} {:<15}\n".format(k, v)
+        strout += "{:<8} {:<25}\n".format(k, v)
 
     return strout
 
