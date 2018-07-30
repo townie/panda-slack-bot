@@ -24,12 +24,12 @@ def load_secret(key, default=None, module_name=None):
             print('INFO: Loaded {} from ENV'.format(key))
             key_set = True
         except:
-            print('ERROR: {} not found, application may not work'.format(key))
+            if not key_set and default is not None:
+                setattr(module, key, default)
+                print('INFO: Used Default for {}.'.format(key))
+                key_set = True
 
-    if not key_set and default is not None:
-        setattr(module, key, default)
-        print('INFO: Used Default for {}.'.format(key))
-
-        key_set = True
+    if not key_set:
+        print('ERROR: {} not found, application may not work'.format(key))
 
     return key_set
